@@ -1,10 +1,18 @@
-export type treeData = {
-    [key: number]: treeDataItem
-};
+export type TreeDataType = TreeDataItemType[] | [];
 
-export type treeDataItem = {
+export type TreeDataItemType = {
+    alt_id: null | string
+    config: {}
+    created: string
     id: number
+    is_hidden: number
+    latitude: number
+    longitude: number
     parent_id: number
+    src_id: null | number
     srt: number
+    tags: []
     title: string
-} | any;
+    updated: string
+    children?: TreeDataItemType[] | []
+};

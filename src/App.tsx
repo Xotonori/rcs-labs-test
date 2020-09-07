@@ -3,7 +3,7 @@ import './App.scss';
 import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./redux/store";
 import {getTreeDataThunk} from "./redux/reducer";
-import {treeDataItem} from "./utils/Types/treeDataTypes";
+import {TreeDataItemType} from "./utils/Types/treeDataTypes";
 
 export const App = memo(() => {
 
@@ -19,7 +19,7 @@ export const App = memo(() => {
 
     return (
         <div className="App">
-            {treeDataArray && treeDataArray.map((item: treeDataItem) => {
+            {treeDataArray && treeDataArray.map((item: TreeDataItemType) => {
                 let {id, parent_id, srt, title} = item;
                 return (
                     <div>

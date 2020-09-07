@@ -1,4 +1,5 @@
 import axios from "axios";
+import {TreeDataItemType} from "../utils/Types/treeDataTypes";
 
 const instance = axios.create({
     baseURL: 'https://rcslabs.ru/locations.json'
@@ -6,11 +7,19 @@ const instance = axios.create({
 
 export const api = {
     getTreeData: () => {
-        return instance.get<any>(``)
-            .then(res => res.data)
+        return instance.get<ResponseType>(``)
+            .then(res => {
+                console.log('res.data');
+                return res.data
+            })
     }
 };
 
-
 //Response Types
+type ResponseType = {
+    [key: number]: TreeDataItemType
+};
+
+
+
 
