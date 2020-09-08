@@ -1,34 +1,23 @@
-import React, {memo, useEffect, useState} from 'react'
+import React, {FC, memo, useState} from 'react'
 import classes from "./TreeDataMenu.module.scss";
 import 'antd/dist/antd.css';
 import {Switch, Menu} from "antd";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
-import {getTreeDataThunk} from "../../redux/reducer";
 import {TreeDataType} from "../../utils/Types/treeDataTypes";
 
-export const TreeDataMenu = memo(() => {
-
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch(getTreeDataThunk());
-    }, [])
+export const TreeDataMenu: FC = memo(() => {
 
     const {Reducer: {treeData}} = useSelector((state: AppStateType) => state);
-
-
-    const {SubMenu} = Menu;
-
     const [theme, setTheme] = useState('dark');
     const [current, setCurrent] = useState('1');
+    const {SubMenu} = Menu;
 
     const changeTheme = (value: boolean) => {
         value ? setTheme('dark') : setTheme('light');
     };
 
     const handleClick = (e: any) => {
-        console.log(e.key)
         setCurrent(e.key);
     };
 
@@ -52,7 +41,7 @@ export const TreeDataMenu = memo(() => {
                 className={classes.Switch}
             />
             <Menu
-                theme={'dark'}
+                theme={theme as ("dark" | "light")}
                 onClick={handleClick}
                 selectedKeys={[current]}
                 defaultOpenKeys={['52']}
@@ -61,7 +50,6 @@ export const TreeDataMenu = memo(() => {
             >
                 {treeData.length !== 0 && buildTreeData(treeData)}
             </Menu>
-
         </div>
     )
 });

@@ -4,9 +4,11 @@ import {api} from "../api/api";
 import {TreeDataType} from "../utils/Types/treeDataTypes";
 
 const SET_TREE_DATA = './recs-labs-test/SET_TREE_DATA'
+const IS_FETCHING_SUCCESS = './recs-labs-test/IS_FETCHING_SUCCESS'
 
 let initialState = {
-    treeData: [] as TreeDataType
+    treeData: [] as TreeDataType,
+    isFetching: false
 }
 
 //Reducers
@@ -18,18 +20,26 @@ export const Reducer = (state: InitialStateType = initialState, action: ActionTy
                 treeData: [...action.treeData]
             }
         }
+        case IS_FETCHING_SUCCESS: {
+            return {
+                ...state,
+                isFetching: action.isFetching
+            }
+        }
         default:
             return state
     }
 }
 
 //Actions
-const action = {
-    setTreeData: (treeData: TreeDataType) => ({type: SET_TREE_DATA, treeData} as const)
+const actions = {
+    setTreeDataSuccess: (treeData: TreeDataType) => ({type: SET_TREE_DATA, treeData} as const),
+    isFetchingSuccess: (isFetching: boolean) => ({type: IS_FETCHING_SUCCESS, isFetching} as const),
 }
 
 //Thunks
 export const getTreeDataThunk = (): ThunkType => async (dispatch) => {
+    await dispatch(actions.isFetchingSuccess(true));
     try {
         const treeData = await api.getTreeData();
         const treeDataArray = Object.values(treeData);
@@ -50,13 +60,14 @@ export const getTreeDataThunk = (): ThunkType => async (dispatch) => {
             });
 
         console.log(result)
-        await dispatch(action.setTreeData(result));
+        await dispatch(actions.setTreeDataSuccess(result));
     } catch (e) {
         console.log(e.message);
     }
+    await dispatch(actions.isFetchingSuccess(false));
 }
 
 //Types
 type ThunkType = ThunkAction<Promise<void>, AppStateType, {}, ActionTypes>
 type InitialStateType = typeof initialState
-type ActionTypes = InferActionTypes<typeof action>
+type ActionTypes = InferActionTypes<typeof actions>
