@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/rcs-labs-test/static/css/main.681a07ba.chunk.css",
+    "main.js": "/rcs-labs-test/static/js/main.8ef1b241.chunk.js",
+    "main.js.map": "/rcs-labs-test/static/js/main.8ef1b241.chunk.js.map",
+    "runtime-main.js": "/rcs-labs-test/static/js/runtime-main.daf2a0a1.js",
+    "runtime-main.js.map": "/rcs-labs-test/static/js/runtime-main.daf2a0a1.js.map",
+    "static/css/2.6df4c8f8.chunk.css": "/rcs-labs-test/static/css/2.6df4c8f8.chunk.css",
+    "static/js/2.087f5657.chunk.js": "/rcs-labs-test/static/js/2.087f5657.chunk.js",
+    "static/js/2.087f5657.chunk.js.map": "/rcs-labs-test/static/js/2.087f5657.chunk.js.map",
+    "index.html": "/rcs-labs-test/index.html",
+    "precache-manifest.62a8889d471d6ce1cd38ec094aa94e96.js": "/rcs-labs-test/precache-manifest.62a8889d471d6ce1cd38ec094aa94e96.js",
+    "service-worker.js": "/rcs-labs-test/service-worker.js",
+    "static/css/2.6df4c8f8.chunk.css.map": "/rcs-labs-test/static/css/2.6df4c8f8.chunk.css.map",
+    "static/css/main.681a07ba.chunk.css.map": "/rcs-labs-test/static/css/main.681a07ba.chunk.css.map",
+    "static/js/2.087f5657.chunk.js.LICENSE.txt": "/rcs-labs-test/static/js/2.087f5657.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.daf2a0a1.js",
+    "static/css/2.6df4c8f8.chunk.css",
+    "static/js/2.087f5657.chunk.js",
+    "static/css/main.681a07ba.chunk.css",
+    "static/js/main.8ef1b241.chunk.js"
+  ]
+}
