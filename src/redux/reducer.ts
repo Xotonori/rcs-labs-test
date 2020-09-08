@@ -15,7 +15,7 @@ export const Reducer = (state: InitialStateType = initialState, action: ActionTy
         case SET_TREE_DATA: {
             return {
                 ...state,
-                treeData: {...action.treeData}
+                treeData: [...action.treeData]
             }
         }
         default:
@@ -32,15 +32,20 @@ const action = {
 export const getTreeDataThunk = (): ThunkType => async (dispatch) => {
     try {
         const treeData = await api.getTreeData();
-        const treeDataArray = Object.values(treeData)
+        const treeDataArray = Object.values(treeData);
 
         const result = treeDataArray.map((parent) => {
             parent.children = treeDataArray.filter((child) => {
+                //Заполняем дочерними элементами массив children
                 return child.parent_id === parent.id;
-            });
+            }).sort((a, b) => {
+                //Сортируем дочерние элементы
+                return (a.srt !== b.srt) ? (a.srt > b.srt) ? 1 : -1 : 0;
+            })
             return parent;
         })
             .filter((mainParent) => {
+                //Возвращаем только главные элементы
                 return mainParent.parent_id === null;
             });
 

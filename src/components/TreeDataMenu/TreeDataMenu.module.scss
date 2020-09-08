@@ -1,0 +1,19 @@
+.TreeDataMenu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+
+  .Menu {
+    width: 500px;
+  }
+
+  .Switch {
+    width: 60px;
+    margin-bottom: 20px;
+  }
+}
+
+ul, li {
+  user-select: none;
+}

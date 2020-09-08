@@ -8,10 +8,7 @@ const instance = axios.create({
 export const api = {
     getTreeData: () => {
         return instance.get<ResponseType>(``)
-            .then(res => {
-                console.log('res.data');
-                return res.data
-            })
+            .then(res => res.data)
     }
 };
 

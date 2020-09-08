@@ -1,4 +1,4 @@
-export type TreeDataType = TreeDataItemType[] | [];
+export type TreeDataType = TreeDataItemType[];
 
 export type TreeDataItemType = {
     alt_id: null | string
@@ -14,5 +14,5 @@ export type TreeDataItemType = {
     tags: []
     title: string
     updated: string
-    children?: TreeDataItemType[] | []
+    children?: TreeDataItemType[]
 };
