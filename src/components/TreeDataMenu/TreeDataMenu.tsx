@@ -7,7 +7,7 @@ import {UpOutlined} from "@ant-design/icons/lib";
 
 export const TreeDataMenu: FC = memo(() => {
 
-    const {Reducer: {treeData}} = useSelector((state: AppStateType) => state);
+    const {treeData} = useSelector((state: AppStateType) => state.Reducer);
 
     const onClickMenuItemHandler = (e: React.MouseEvent<HTMLLIElement>) => {
         //Клик по дочерним li
@@ -19,7 +19,7 @@ export const TreeDataMenu: FC = memo(() => {
         //Анимация стрелочек развертывания
         const arrow = e.currentTarget.getElementsByClassName('anticon-up')[0];
 
-        if(arrow.classList.contains(classes.arrowOpen)) {
+        if (arrow.classList.contains(classes.arrowOpen)) {
             arrow.classList.remove(classes.arrowOpen);
             arrow.classList.add(classes.arrowClose);
         } else {
@@ -38,8 +38,7 @@ export const TreeDataMenu: FC = memo(() => {
                 <li key={item.id} className={classes.wrapSubMenu}>
                     <div className={`${classes.SubMenu} ${item.parent_id === null && classes.MainSubMenu}`}
                          style={{paddingLeft: `${paddingLeft}px`}}
-                         onClick={onClickSubMenuHandler}
-                    >
+                         onClick={onClickSubMenuHandler}>
                         <span>{item.title}</span>
                         <UpOutlined/>
                     </div>
