@@ -1,19 +1,76 @@
+ul, li {
+  user-select: none;
+  list-style-type: none;
+  text-align: left;
+  padding: 0;
+  color: #c7c7c7;
+}
+
+li {
+  cursor: pointer;
+}
+
 .TreeDataMenu {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  letter-spacing: .5px;
 
   .Menu {
     width: 500px;
-  }
 
-  .Switch {
-    width: 60px;
-    margin-bottom: 20px;
+    .wrapSubMenu {
+
+      .SubMenu {
+        display: flex;
+        justify-content: space-between;
+
+        .arrowOpen {
+          transition: all .3s;
+          transform: rotate(180deg);
+        }
+        .arrowClose {
+          transition: all .3s;
+          transform: rotate(0deg);
+        }
+
+      }
+
+      .SubMenu, .MenuItem {
+        padding: 15px 20px;
+        background-color: #000c17;
+        transition: all .3s;
+        &:hover {
+          color: #fff;
+        }
+      }
+
+      .MainSubMenu {
+        background-color: #001529;
+      }
+
+      .MenuItem {
+
+      }
+
+      .hideMenuItem {
+        display:none;
+      }
+
+      .activeListItem {
+        color: #fff;
+        background-color: #1890ff;
+      }
+    }
   }
 }
 
-ul, li {
-  user-select: none;
-}
+
+
+
+
+
+
+

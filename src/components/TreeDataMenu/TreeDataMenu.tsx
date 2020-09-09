@@ -1,55 +1,66 @@
-import React, {FC, memo, useState} from 'react'
+import React, {FC, memo} from 'react'
 import classes from "./TreeDataMenu.module.scss";
-import 'antd/dist/antd.css';
-import {Switch, Menu} from "antd";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../../redux/store";
 import {TreeDataType} from "../../utils/Types/treeDataTypes";
+import {UpOutlined} from "@ant-design/icons/lib";
 
 export const TreeDataMenu: FC = memo(() => {
 
     const {Reducer: {treeData}} = useSelector((state: AppStateType) => state);
-    const [theme, setTheme] = useState('dark');
-    const [current, setCurrent] = useState('1');
-    const {SubMenu} = Menu;
 
-    const changeTheme = (value: boolean) => {
-        value ? setTheme('dark') : setTheme('light');
-    };
+    const onClickMenuItemHandler = (e: React.MouseEvent<HTMLLIElement>) => {
+        //Клик по дочерним li
+        document.querySelectorAll(`li`).forEach(item => item.classList.remove(classes.activeListItem));
+        e.currentTarget.classList.contains(classes.MenuItem) && e.currentTarget.classList.add(classes.activeListItem);
+    }
 
-    const handleClick = (e: any) => {
-        setCurrent(e.key);
-    };
+    const onClickSubMenuHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent> | any) => {
+        //Анимация стрелочек развертывания
+        const arrow = e.currentTarget.getElementsByClassName('anticon-up')[0];
 
-    const buildTreeData = (treeItem: TreeDataType) => (
-        //Формируем html дерево с помощью библиотеки AntDesign
+        if(arrow.classList.contains(classes.arrowOpen)) {
+            arrow.classList.remove(classes.arrowOpen);
+            arrow.classList.add(classes.arrowClose);
+        } else {
+            arrow.classList.remove(classes.arrowClose);
+            arrow.classList.add(classes.arrowOpen);
+        }
+
+        //Скрытие списков
+        e.currentTarget.parentNode.querySelector('ul').classList.toggle(classes.hideMenuItem);
+    }
+
+    const buildTreeData = (treeItem: TreeDataType, paddingLeft: number) => (
+        //Формируем html дерево
         treeItem.map((item, index) => (
             item.children?.length !== 0 ?
-                <SubMenu key={`${item.id}`} title={item.title}>
-                    {buildTreeData(item.children as TreeDataType)}
-                </SubMenu>
-                : <Menu.Item key={`${item.id}${index}`}>{item.title}</Menu.Item>
+                <li key={item.id} className={classes.wrapSubMenu}>
+                    <div className={`${classes.SubMenu} ${item.parent_id === null && classes.MainSubMenu}`}
+                         style={{paddingLeft: `${paddingLeft}px`}}
+                         onClick={onClickSubMenuHandler}
+                    >
+                        <span>{item.title}</span>
+                        <UpOutlined/>
+                    </div>
+                    <ul className={`${classes.UnOrderedlist} ${classes.hideMenuItem}`}>
+                        {buildTreeData(item.children as TreeDataType, paddingLeft + 30)}
+                    </ul>
+                </li>
+                :
+                <li key={`${item.id}${index}`}
+                    className={classes.MenuItem}
+                    style={{paddingLeft: `${paddingLeft}px`}}
+                    onClick={onClickMenuItemHandler}>
+                    {item.title}
+                </li>
         )));
 
     return (
         <div className={classes.TreeDataMenu}>
-            <Switch
-                checked={theme === 'dark'}
-                onChange={changeTheme}
-                checkedChildren="Dark"
-                unCheckedChildren="Light"
-                className={classes.Switch}
-            />
-            <Menu
-                theme={theme as ("dark" | "light")}
-                onClick={handleClick}
-                selectedKeys={[current]}
-                defaultOpenKeys={['52']}
-                mode="inline"
-                className={classes.Menu}
-            >
-                {treeData.length !== 0 && buildTreeData(treeData)}
-            </Menu>
+            <ul className={`${classes.Menu}`}>
+                {treeData.length !== 0 && buildTreeData(treeData, 20)}
+            </ul>
         </div>
     )
 });

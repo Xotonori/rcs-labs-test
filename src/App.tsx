@@ -7,13 +7,12 @@ import {AppStateType} from "./redux/store";
 import {getTreeDataThunk} from "./redux/reducer";
 
 export const App: FC = memo(() => {
-
     const dispatch = useDispatch();
-    const {Reducer: {isFetching}} = useSelector((state: AppStateType) => state);
+    const isFetching = useSelector((state: AppStateType) => state.Reducer.isFetching);
 
     useEffect(() => {
         dispatch(getTreeDataThunk());
-    }, [])
+    }, []);
 
     return (
         <div className="App">

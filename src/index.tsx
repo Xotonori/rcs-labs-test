@@ -1,16 +1,13 @@
 import React from "react";
-import {HashRouter} from "react-router-dom";
 import {store} from "./redux/store";
 import {App} from "./App";
 import {Provider} from "react-redux";
 import ReactDOM from "react-dom";
 
 ReactDOM.render(
-    <HashRouter>
-        <Provider store={store}>
-            <App/>
-        </Provider>
-    </HashRouter>,
+    <Provider store={store}>
+        <App/>
+    </Provider>,
     document.getElementById('root')
 );
 
